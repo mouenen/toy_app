@@ -43,7 +43,7 @@ class MicropostsController < ApplicationController
   # PATCH/PUT /microposts/1.json
   def update
     respond_to do |format|
-      if @micropost.update(micropost_params)
+      if @micropost.user_id == current_user.id && @micropost.update(micropost_params)
         format.html { redirect_to @micropost, notice: 'Micropost was successfully updated.' }
         format.json { render :show, status: :ok, location: @micropost }
       else
@@ -56,7 +56,9 @@ class MicropostsController < ApplicationController
   # DELETE /microposts/1
   # DELETE /microposts/1.json
   def destroy
-    @micropost.destroy
+    if @micropost.user_id == current_user.id
+      @micropost.destroy
+    end
     respond_to do |format|
       format.html { redirect_to microposts_url, notice: 'Micropost was successfully destroyed.' }
       format.json { head :no_content }
