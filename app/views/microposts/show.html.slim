@@ -1,12 +1,18 @@
 p#notice
   = notice
+
+- if @micropost.image.attached?
+    p
+      strong
+        | Image : 
+      = image_tag @micropost.image
 p
   strong
-    | Content:
+    | Content : 
   = @micropost.content
 p
   strong
-    | User:
+    | User : 
   = @micropost.user_id
 = link_to 'Edit', edit_micropost_path(@micropost)
 |  | 
