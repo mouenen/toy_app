@@ -6,17 +6,22 @@ p#notice
       strong
         | Image : 
       = image_tag @micropost.image
+
+- @micropost.categories.each do |category|
+  p
+    strong
+      | Category : 
+    = category.name
+
 p
   strong
     | Content : 
   = @micropost.content
 
-- @users.each do |user|
-  - if @micropost.user_id == user.id
-    p
-      strong
-        | User : 
-      = user.name
+p
+  strong
+    | User : 
+  = @micropost.user.name
 
 = link_to 'Edit', edit_micropost_path(@micropost)
 |  | 
