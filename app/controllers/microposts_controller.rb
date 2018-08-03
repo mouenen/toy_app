@@ -6,11 +6,14 @@ class MicropostsController < ApplicationController
   # GET /microposts.json
   def index
     @microposts = Micropost.all
+    @users = User.all
   end
 
   # GET /microposts/1
   # GET /microposts/1.json
   def show
+    @microposts = Micropost.all
+    @users = User.all
   end
 
   # GET /microposts/new

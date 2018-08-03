@@ -15,8 +15,12 @@ table
       tr
         td
           = micropost.content
-        td
-          = micropost.user_id
+
+        - @users.each do |user|
+          - if micropost.user_id == user.id
+            td
+              = user.name
+              
         td
           = link_to 'Show', micropost
         td
