@@ -1,0 +1,9 @@
+= form_for([@micropost, @micropost.comments.build]) do |form|
+  .field
+    = form.label :name
+    = form.text_field :name
+  .field
+    = form.label :comment
+    = form.text_area :comment
+  .actions
+    = form.submit
