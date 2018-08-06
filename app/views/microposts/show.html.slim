@@ -7,12 +7,13 @@ p#notice
         | Image : 
       = image_tag @micropost.image
 
-- @micropost.categories.each do |category|
-  p
-    strong
-      | Category : 
-    = category.name
-
+p
+  strong
+    | Category : 
+  - @micropost.categories.each do |category|
+    li
+      = link_to category.name, category_path(category)
+    
 p
   strong
     | Content : 
@@ -22,6 +23,26 @@ p
   strong
     | User : 
   = @micropost.user.name
+
+table
+  thead
+    tr
+      th 
+        | Name
+      th 
+        | Comment
+  tbody
+    - @micropost.comments.each do |comment|
+      tr 
+        td 
+          = comment.name
+        td
+          = comment.comment
+       
+p
+  strong
+    | Leave a reply
+  = render 'comments/form'
 
 = link_to 'Edit', edit_micropost_path(@micropost)
 |  | 

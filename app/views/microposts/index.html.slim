@@ -11,13 +11,14 @@ table
         | User
       th
         | Content
-      th colspan="4"
+      th colspan="3"
   tbody
     - @microposts.each do |micropost|
       tr
         td
-          - micropost.categories.pluck(:name).each do |cat|
-            li = cat
+          - micropost.categories.each do |category|
+            li 
+              = link_to category.name, category_path(category)
         td
           = micropost.user.name
         td
@@ -29,6 +30,6 @@ table
             = link_to 'Edit', edit_micropost_path(micropost)
         td
           - if micropost.user_id == current_user.id
-            = link_to 'Destroy', micropost, method: :delete, data: { confirm: 'Are you sure?' }
+            = link_to 'Delete', micropost, method: :delete, data: { confirm: 'Are you sure?' }
 br
 = link_to 'New Micropost', new_micropost_path
