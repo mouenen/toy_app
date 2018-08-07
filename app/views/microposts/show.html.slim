@@ -31,6 +31,7 @@ table
         | Name
       th 
         | Comment
+      th colspan="1"
   tbody
     - @micropost.comments.each do |comment|
       tr 
@@ -38,7 +39,10 @@ table
           = comment.name
         td
           = comment.comment
-       
+        td
+          - if @micropost.user_id == current_user.id
+            = link_to 'Delete', [comment.micropost, comment],
+               method: :delete, class: "button is-danger", data: { confirm: 'Are you sure?' } 
 p
   strong
     | Leave a reply
