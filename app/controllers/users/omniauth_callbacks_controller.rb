@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable all
+
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
@@ -28,3 +30,4 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   #   super(scope)
   # end
 end
+# rubocop:enable all

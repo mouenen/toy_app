@@ -1,27 +1,27 @@
 p#notice
   = notice
-p 
+p
   strong
-    | name  
+    | name
   = @category.name
 
 table
   thead
     tr
-      th 
+      th
         | User
-      th 
+      th
         | Micropost
   tbody
     - @category.microposts.each do |micropost|
-      tr 
-        td 
-          = micropost.user.name
+      tr
+        td
+          = micropost.user_name
         td
           = micropost.content
-  
+
 = link_to 'Edit', edit_category_path(@category)
-|  | 
+|  |
 = link_to 'Back to Categories', categories_path
-|  | 
+|  |
 = link_to 'Back to Microposts', microposts_path

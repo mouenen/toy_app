@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable all
+
 class Users::UnlocksController < Devise::UnlocksController
   # GET /resource/unlock/new
   # def new
@@ -28,3 +30,4 @@ class Users::UnlocksController < Devise::UnlocksController
   #   super(resource)
   # end
 end
+# rubocop:enable all

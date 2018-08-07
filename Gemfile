@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -6,10 +8,12 @@ ruby '2.5.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
 # Use sqlite3 as the database for Active Record
-#gem 'sqlite3'
-# Use mysql as the database for Active Record
-gem 'yaml_db'
+# gem 'sqlite3'
+# Use bootstrap
+gem 'bootstrap-sass'
+# Use mysql2 as the database for Active Record
 gem 'mysql2'
+gem 'yaml_db'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -40,23 +44,33 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # Use Slim
-gem 'slim', '~>3.0','>=3.0.9'
+gem 'slim', '~>3.0', '>=3.0.9'
 
-#Use Desive
-gem 'devise', '~>4.4','>=4.4.3'
+# Use Desive
+gem 'devise', '~>4.4', '>=4.4.3'
 
 group :development, :test do
+  # rubocop:disable all
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # rubocop:enable all
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
+  # rubocop:disable all
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
+  # rubocop:enable all
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console', '>= 3.3.0'
+  # rubocop:disable all
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  # rubocop:disable all
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  # Rubocop
+  gem 'rubocop', '~> 0.58.2', require: false
+  # Rails_best_practices
+  gem "rails_best_practices"
 end
 
 group :test do
@@ -66,14 +80,16 @@ group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
   # Minitest-reporters
-  gem 'rails-controller-testing', '0.1.1'
-  gem 'minitest-reporters',       '1.1.9'
   gem 'guard',                    '2.13.0'
   gem 'guard-minitest',           '2.4.4'
+  gem 'minitest-reporters',       '1.1.9'
+  gem 'rails-controller-testing', '0.1.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+
+# rubocop:disable all
 
 # # 新規作成
 # $ docker run --name mysql-sample -e MYSQL_ROOT_PASSWORD=password -e MYSQL_USER=user -e MYSQL_PASSWORD=password -e MYSQL_DATABASE=db -p 3306:3306 -d mysql
@@ -87,3 +103,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # # login
 # $ mysql -h 127.0.0.1 -u root -ppassword
+
+# rubocop:enable all
