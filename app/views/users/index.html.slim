@@ -11,7 +11,7 @@ table
         | Email
       th[colspan="3"]
   tbody
-    - @users.each do |user|
+    - @users.order(name: :asc).each do |user|
       tr
         td
           = user.name
@@ -24,6 +24,4 @@ table
         td
           = link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
 br
-= link_to 'New User', new_user_path
-| |
 = link_to 'Microposts', microposts_path

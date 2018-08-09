@@ -27,12 +27,10 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
     respond_to do |format|
       if @user.save
         format.html do
-          redirect_to @user,
-                      notice: 'User was successfully created.'
+          redirect_to @user, notice: t('created', name: 'User')
         end
         format.json { render :show, status: :created, location: @user }
       else
@@ -48,8 +46,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update(user_params)
         format.html do
-          redirect_to @user,
-                      notice: 'User was successfully updated.'
+          redirect_to @user, notice: t('updated', name: 'User')
         end
         format.json { render :show, status: :ok, location: @user }
       else
@@ -62,11 +59,11 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
+    Micropost.where(user_id: @user.id).each(&:destroy)
     @user.destroy
     respond_to do |format|
       format.html do
-        redirect_to users_url,
-                    notice: 'User was successfully destroyed.'
+        redirect_to users_url, notice: t('destroyed', name: 'User')
       end
       format.json { head :no_content }
     end

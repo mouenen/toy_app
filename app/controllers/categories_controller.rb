@@ -2,8 +2,7 @@
 
 # app/controllers/categories_controller.rb
 class CategoriesController < ApplicationController
-  before_action :set_category,
-                only: %i[show show_microposts edit update destroy]
+  before_action :set_category, only: %i[show edit update destroy]
 
   # GET /categories
   # GET /categories.json
@@ -30,15 +29,13 @@ class CategoriesController < ApplicationController
     respond_to do |format|
       if @category.save
         format.html do
-          redirect_to @category,
-                      notice: 'Category was successfully created.'
+          redirect_to @category, notice: t('created', name: 'Category')
         end
         format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new }
         format.json do
-          render json: @category.errors,
-                 status: :unprocessable_entity
+          render json: @category.errors, status: :unprocessable_entity
         end
       end
     end
@@ -50,8 +47,7 @@ class CategoriesController < ApplicationController
     respond_to do |format|
       if @category.update(category_params)
         format.html do
-          redirect_to @category,
-                      notice: 'Category was successfully updated.'
+          redirect_to @category, notice: t('updated', name: 'Category')
         end
         format.json { render :show, status: :ok, location: @category }
       else
@@ -70,8 +66,7 @@ class CategoriesController < ApplicationController
     @category.destroy
     respond_to do |format|
       format.html do
-        redirect_to categories_url,
-                    notice: 'Category was successfully destroyed.'
+        redirect_to categories_url, notice: t('destroyed', name: 'Category')
       end
       format.json { head :no_content }
     end
@@ -84,12 +79,7 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
   end
 
-  # rubocop:disable all
-
-  # Never trust parameters from the scary internet, only allow the white list through.
-
-  # rubocop:enable all
-
+  # Never trust parameters from the scary internet, only allow the white list through.  # rubocop:disable all
   def category_params
     params.require(:category).permit(:name)
   end

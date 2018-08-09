@@ -2,6 +2,6 @@
 
 # app/models/category.rb
 class Category < ApplicationRecord
-  has_many :category_microposts
+  has_many :category_microposts, dependent: :delete_all, validate: false
   has_many :microposts, through: :category_microposts
 end

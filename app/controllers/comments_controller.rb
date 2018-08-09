@@ -4,47 +4,24 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[show edit update destroy]
 
-  # GET /comments
-  # GET /comments.json
-  def index
-    @comments = Comment.all
-  end
-
-  # GET /comments/1
-  # GET /comments/1.json
-  def show; end
-
-  # GET /comments/new
-  def new
-    @comment = Comment.new
-    @micropost = Micropost.new(params[:micropost])
-  end
-
-  # GET /comments/1/edit
-  def edit; end
-
   # POST /comments
   # POST /comments.json
   def create
     @micropost = Micropost.find(params[:micropost_id])
-    @comment = @micropost.comments.create(
-      params[:comment].permit(:name, :comment, :micropost_id)
-    )
-    redirect_to micropost_path(@micropost)
-
-    # rubocop:disable all
-
-    # respond_to do |format|
-    #   if @comment.save
-    #     format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
-    #     format.json { render :show, status: :created, location: @comment }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @comment.errors, status: :unprocessable_entity }
-    #   end
-    # end
-
-    # rubocop:enable all
+    @comment = @micropost.comments.new(comment_params)
+    respond_to do |format|
+      if @comment.save
+        format.html do
+          redirect_to micropost_path(@micropost), notice: t('created', name: 'Comment') # rubocop:disable all
+        end
+        format.json { render :show, status: :created, location: @comment }
+      else
+        format.html { render :new }
+        format.json do
+          render json: @comment.errors, status: :unprocessable_entity
+        end
+      end
+    end
   end
 
   # PATCH/PUT /comments/1
@@ -53,15 +30,13 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.update(comment_params)
         format.html do
-          redirect_to @comment,
-                      notice: 'Comment was successfully updated.'
+          redirect_to @comment, notice: t('updated', name: 'Comment')
         end
         format.json { render :show, status: :ok, location: @comment }
       else
         format.html { render :edit }
         format.json do
-          render json: @comment.errors,
-                 status: :unprocessable_entity
+          render json: @comment.errors, status: :unprocessable_entity
         end
       end
     end
@@ -73,17 +48,13 @@ class CommentsController < ApplicationController
     @micropost = Micropost.find(params[:micropost_id])
     @comment = @micropost.comments.find(params[:id])
     @comment.destroy
-    redirect_to micropost_path(@micropost)
-
-    # rubocop:disable all
-
-    # @comment.destroy
-    # respond_to do |format|
-    #   format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
-    #   format.json { head :no_content }
-    # end
-
-    # rubocop:enable all
+    respond_to do |format|
+      format.html do
+        redirect_to micropost_path(@micropost),
+                    notice: t('destroyed', name: 'Comment')
+      end
+      format.json { head :no_content }
+    end
   end
 
   private
@@ -93,12 +64,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
   end
 
-  # rubocop:disable all
-
-  # Never trust parameters from the scary internet, only allow the white list through.
-
-  # rubocop:enable all
-
+  # Never trust parameters from the scary internet, only allow the white list through. # rubocop:disable all
   def comment_params
     params.require(:comment).permit(:name, :comment, :micropost_id)
   end

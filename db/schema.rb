@@ -1,22 +1,20 @@
 # frozen_string_literal: true
 
-# rubocop:disable all
-
-# This file is auto-generated from the current state of the database. Instead
-# of editing this file, please use the migrations feature of Active Record to
-# incrementally modify your database, and then regenerate this schema definition.
+# This file is auto-generated from the current state of the database. Instead of
+# editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, then regenerate this schema definition.
 #
 # Note that this schema.rb definition is the authoritative source for your
 # database schema. If you need to create the application database on another
 # system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# from scratch. The latter is a flawed and unsustainable approach (the more
+# migrations you'll amass, the slower it'll run and the greater likelihood for
+# issues).
 #
-# It's strongly recommended that you check this file into your version control system.
+# It's strongly recommended that you check this file into your version
+# control system.
 
-# rubocop:enable all
-
-ActiveRecord::Schema.define(version: 20_180_806_110_910) do
+ActiveRecord::Schema.define(version: 20_180_808_071_943) do
   create_table 'active_storage_attachments',
                options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8',
                force: :cascade do |t|
@@ -45,46 +43,38 @@ ActiveRecord::Schema.define(version: 20_180_806_110_910) do
 
   create_table 'categories', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8',
                              force: :cascade do |t|
-    t.string 'name'
+    t.string 'name', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-    t.integer 'microposts_count'
+    t.integer 'microposts_count', default: 0, null: false
   end
 
   create_table 'category_microposts',
                options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8',
                force: :cascade do |t|
-
-    add_index :category_microposts, :category_id
-    add_index :category_microposts, :micropost_id
-
-    t.integer 'category_id'
-    t.integer 'micropost_id'
+    t.bigint 'category_id', null: false
+    t.bigint 'micropost_id', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
 
   create_table 'comments', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8',
                            force: :cascade do |t|
-
-    add_index :comments, :micropost_id
-
-    t.string 'name'
-    t.text 'comment'
+    t.string 'name', null: false
+    t.text 'comment', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-    t.integer 'micropost_id'
+    t.bigint 'micropost_id', null: false
+    t.index ['micropost_id'], name: 'fk_rails_a42aadf913'
   end
 
   create_table 'microposts', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8',
                              force: :cascade do |t|
-
-    add_index :microposts, :user_id
-
-    t.text 'content'
-    t.integer 'user_id'
+    t.text 'content', null: false
+    t.bigint 'user_id', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.index ['user_id'], name: 'fk_rails_558c81314b'
   end
 
   create_table 'users', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8',
@@ -101,10 +91,12 @@ ActiveRecord::Schema.define(version: 20_180_806_110_910) do
     t.string 'last_sign_in_ip'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-    t.string 'name'
+    t.string 'name', null: false
     t.index ['email'], name: 'index_users_on_email', unique: true
     t.index ['reset_password_token'],
-            name: 'index_users_on_reset_password_token',
-            unique: true
+            name: 'index_users_on_reset_password_token', unique: true
   end
+
+  add_foreign_key 'comments', 'microposts'
+  add_foreign_key 'microposts', 'users'
 end

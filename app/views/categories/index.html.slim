@@ -11,7 +11,7 @@ table
         | Count
       th[colspan="3"]
   tbody
-    - @categories.each do |category|
+    - @categories.order(name: :asc).each do |category|
       tr
         td
           = category.name

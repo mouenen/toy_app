@@ -13,7 +13,7 @@ table
         | Content:
       th colspan="3"
   tbody
-    - @microposts.each do |micropost|
+    - @microposts.order(user_id: :asc).each do |micropost|
       tr
         td
           - micropost.categories.each do |category|

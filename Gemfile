@@ -49,6 +49,9 @@ gem 'slim', '~>3.0', '>=3.0.9'
 # Use Desive
 gem 'devise', '~>4.4', '>=4.4.3'
 
+# ActiveDecorator
+gem 'active_decorator'
+
 group :development, :test do
   # rubocop:disable all
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
