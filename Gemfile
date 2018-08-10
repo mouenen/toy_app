@@ -52,11 +52,13 @@ gem 'devise', '~>4.4', '>=4.4.3'
 # ActiveDecorator
 gem 'active_decorator'
 
+# jQuery
+gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
+
 group :development, :test do
-  # rubocop:disable all
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  # rubocop:enable all
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'pry-byebug'
+  gem 'pry-doc'
+  gem 'pry-rails'
 end
 
 group :development do

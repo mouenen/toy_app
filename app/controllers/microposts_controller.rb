@@ -90,6 +90,7 @@ class MicropostsController < ApplicationController
     @micropost = current_user.microposts.find(params[:id])
   end
 
+  # Never trust parameters from the scary internet, only allow the white list through. # rubocop:disable all
   def micropost_params
     params.require(:micropost).permit(:content, :image, category_ids: [])
   end

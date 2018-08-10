@@ -4,6 +4,33 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[show edit update destroy]
 
+  # GET /comments
+  # GET /comments.json
+  def index
+    @comments = if params[:micropost_id]
+                  Comment.where(micropost_id: params[:micropost_id])
+                else
+                  Comment.all
+                end
+  end
+
+  # GET /comments/1
+  # GET /comments/1.js
+  def show
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  # GET /comments/new
+  def new
+    @comment = Comment.new
+  end
+
+  # GET /comments/1/edit
+  def edit; end
+
   # POST /comments
   # POST /comments.json
   def create
