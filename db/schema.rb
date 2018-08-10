@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# This file is auto-generated from the current state of the database. Instead of
-# editing this file, please use the migrations feature of Active Record to
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, then regenerate this schema definition.
 #
 # Note that this schema.rb definition is the authoritative source for your
@@ -11,10 +11,10 @@
 # migrations you'll amass, the slower it'll run and the greater likelihood for
 # issues).
 #
-# It's strongly recommended that you check this file into your version
-# control system.
+# It's strongly recommended that you check this file into your version control
+# system.
 
-ActiveRecord::Schema.define(version: 20_180_808_071_943) do
+ActiveRecord::Schema.define(version: 20_180_810_075_139) do
   create_table 'active_storage_attachments',
                options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8',
                force: :cascade do |t|
@@ -41,8 +41,9 @@ ActiveRecord::Schema.define(version: 20_180_808_071_943) do
     t.index ['key'], name: 'index_active_storage_blobs_on_key', unique: true
   end
 
-  create_table 'categories', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8',
-                             force: :cascade do |t|
+  create_table 'categories',
+               options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8',
+               force: :cascade do |t|
     t.string 'name', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
@@ -58,8 +59,9 @@ ActiveRecord::Schema.define(version: 20_180_808_071_943) do
     t.datetime 'updated_at', null: false
   end
 
-  create_table 'comments', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8',
-                           force: :cascade do |t|
+  create_table 'comments',
+               options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8',
+               force: :cascade do |t|
     t.string 'name', null: false
     t.text 'comment', null: false
     t.datetime 'created_at', null: false
@@ -68,8 +70,9 @@ ActiveRecord::Schema.define(version: 20_180_808_071_943) do
     t.index ['micropost_id'], name: 'fk_rails_a42aadf913'
   end
 
-  create_table 'microposts', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8',
-                             force: :cascade do |t|
+  create_table 'microposts',
+               options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8',
+               force: :cascade do |t|
     t.text 'content', null: false
     t.bigint 'user_id', null: false
     t.datetime 'created_at', null: false
