@@ -34,6 +34,7 @@
     </thead>
   </table>
 
+  </br>
   <%= render partial:'comments/form', locals: {micropost: @micropost} %>
   
   <%= link_to 'Edit', edit_micropost_path(@micropost) %> |
@@ -46,7 +47,8 @@ $(function() {
   $.get(url, function(result) {
     result.forEach(function(comment) {
       var tr = $('<tr>')
-      tr.html("<td>"+comment.name+"</td>" + "<td>"+comment.comment+"</td>")
+      tr.html("<td>"+comment.name+"</td>" 
+            + "<td>"+comment.comment+"</td>")
       $('#comments').append(tr)
     })
   })

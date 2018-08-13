@@ -2,6 +2,7 @@
 
 # app/controllers/comments_controller.rb
 class CommentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_comment, only: %i[show edit update destroy]
 
   # GET /comments
@@ -16,12 +17,7 @@ class CommentsController < ApplicationController
 
   # GET /comments/1
   # GET /comments/1.js
-  def show
-    respond_to do |format|
-      format.html
-      format.js
-    end
-  end
+  def show; end
 
   # GET /comments/new
   def new

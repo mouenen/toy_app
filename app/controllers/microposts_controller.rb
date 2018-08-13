@@ -2,9 +2,8 @@
 
 # app/controllers/microposts_controller.rb
 class MicropostsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_micropost, only: %i[show edit update destroy]
-  before_action :correct_owner, only: %i[show edit update destroy]
+  before_action :set_micropost, only: %i[show]
+  before_action :set_current_user_micropost, only: %i[update edit destroy]
 
   # GET /microposts
   # GET /microposts.json
@@ -80,13 +79,12 @@ class MicropostsController < ApplicationController
 
   private
 
-  # Correct_owner
-  def correct_owner
-    redirect_to(microposts_path) unless set_micropost
-  end
-
   # Use callbacks to share common setup or constraints between actions.
   def set_micropost
+    @micropost = Micropost.find(params[:id])
+  end
+
+  def set_current_user_micropost
     @micropost = current_user.microposts.find(params[:id])
   end
 
