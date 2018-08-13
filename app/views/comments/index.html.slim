@@ -6,8 +6,6 @@ table
   thead
     tr
       th
-        | User
-      th
         | Name
       th
         | Comment
@@ -15,8 +13,6 @@ table
   tbody
     - @comments.each do |comment|
       tr
-        td
-          = comment.user.name
         td
           = comment.name
         td
