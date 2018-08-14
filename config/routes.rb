@@ -2,7 +2,6 @@
 
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  get 'comments/index'
   resources :comments
   resources :microposts do
     resources :comments, only: %i[show create update destroy]
