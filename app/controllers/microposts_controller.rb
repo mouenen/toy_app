@@ -2,18 +2,21 @@
 
 # app/controllers/microposts_controller.rb
 class MicropostsController < ApplicationController
+  before_action :set_current_user_micropost, only: %i[edit update destroy]
+  before_action :set_current_user_microposts, only: %i[mymicroposts]
   before_action :set_micropost, only: %i[show]
-  before_action :set_current_user_micropost, only: %i[update edit destroy]
 
   # GET /microposts
   # GET /microposts.json
   def index
-    @microposts = Micropost.all
+    @microposts = Micropost.all.order('created_at DESC')
   end
 
   # GET /microposts/1
   # GET /microposts/1.json
   def show; end
+
+  def mymicroposts; end
 
   # GET /microposts/new
   def new
@@ -88,6 +91,9 @@ class MicropostsController < ApplicationController
     @micropost = current_user.microposts.find(params[:id])
   end
 
+  def set_current_user_microposts
+    @microposts = Micropost.where(user_id: current_user.id)
+  end
   # Never trust parameters from the scary internet, only allow the white list through. # rubocop:disable all
   def micropost_params
     params.require(:micropost).permit(:content, :image, category_ids: [])

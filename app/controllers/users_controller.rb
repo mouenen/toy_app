@@ -8,7 +8,9 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    # @q = User.ransack(params[:q])
+    # @users = @q.result.includes(:microposts).page(params[:page]).to_a.uniq
+    @users = User.page params[:page]
   end
 
   # GET /users/1

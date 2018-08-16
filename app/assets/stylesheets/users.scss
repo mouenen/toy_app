@@ -1,10 +1,60 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bootstrap-sprockets";
+@import "bootstrap";
 
-// @import "bootstrap-sprockets";
-// @import "bootstrap";
+body {
+    padding-top: 100px;
+}
 
-// body {
-//     margin: 0px;
-// }
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1;
+    text-align: center;
+}
+
+#logo {
+    float: left;
+    margin-top: 10px;
+    margin-right: 10px;
+    font-size: 2em;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    padding-top: 9px;
+    font-weight: bold;
+    &:hover {
+        color: wheat;
+        text-decoration: none;
+    }
+}
+
+#login {
+    float: right;
+    margin-top: -10px;
+    font-weight: bold;
+    a {
+        color: white;
+        &:hover {
+            color: wheat;
+            text-decoration: none;
+        }
+    }
+}
+
+td {
+    font-size: 14px;
+    padding: 5px 8px;
+}
+
+li {
+    list-style-type: none;
+}
+
+.btn-group, .input-group {
+    margin: 20px 10px;
+}
+
+.dropdown {
+    margin: 20px 10px; 
+}
