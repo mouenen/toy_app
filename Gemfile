@@ -81,6 +81,9 @@ group :development do
   # debug
   gem 'better_errors'                       # エラー画面を見やすくする
   gem 'binding_of_caller'                   # better_errorsのエラー画面にconsoleを表示
+  # email
+  gem 'letter_opener'
+  gem 'letter_opener_web'
 end
 
 group :test do

@@ -9,22 +9,31 @@ class MicropostsController < ApplicationController
   # GET /microposts
   # GET /microposts.json
   def index
-    @microposts = Micropost.all.order('created_at DESC')
+    @q = Micropost.ransack(params[:q])
+    @microposts = @q.result(distinct: true).page(params[:page]).order('created_at DESC')
+    @page_title = t('page_title', name: 'Micropost')
   end
 
   # GET /microposts/1
   # GET /microposts/1.json
-  def show; end
+  def show
+    @page_title = t('page_title', name: 'Micropost')
+  end
 
-  def mymicroposts; end
+  def mymicroposts
+    @page_title = t('page_title', name: 'My Microposts')
+  end
 
   # GET /microposts/new
   def new
     @micropost = Micropost.new
+    @page_title = t('page_title', name: 'New Micropost')
   end
 
   # GET /microposts/1/edit
-  def edit; end
+  def edit
+    @page_title = t('page_title', name: 'Edit Micropost')
+  end
 
   # POST /microposts
   # POST /microposts.json
@@ -92,7 +101,7 @@ class MicropostsController < ApplicationController
   end
 
   def set_current_user_microposts
-    @microposts = Micropost.where(user_id: current_user.id)
+    @microposts = current_user.microposts
   end
   # Never trust parameters from the scary internet, only allow the white list through. # rubocop:disable all
   def micropost_params

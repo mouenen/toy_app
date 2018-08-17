@@ -16,6 +16,7 @@
 //= require_tree .
 //= require jquery3
 //= require jquery_ujs
+//= require bootstrap
 //= require js-routes
 //= require selectize 
 //= require selectize.default

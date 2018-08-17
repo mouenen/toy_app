@@ -3,10 +3,10 @@
     <p id="notice"><%= notice %></p>
 
     <% if @micropost.image.attached? %>
-    <p>
-    <strong> Image: </strong>
-      <%= image_tag @micropost.image %>
-    </p>
+      <p>
+        <strong> Image: </strong>
+        <%= image_tag @micropost.image %>
+      </p>
     <% end %>
 
     <p>
