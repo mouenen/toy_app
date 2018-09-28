@@ -34,3 +34,4 @@ en:
   created: "%{name} was successfully created."
   updated: "%{name} was successfully updated."
   destroyed: "%{name} was successfully destroyed."
+  page_title: "%{name}"

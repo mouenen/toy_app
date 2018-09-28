@@ -2,27 +2,38 @@
 
 # app/controllers/microposts_controller.rb
 class MicropostsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_micropost, only: %i[show edit update destroy]
-  before_action :correct_owner, only: %i[show edit update destroy]
+  before_action :set_current_user_micropost, only: %i[edit update destroy]
+  before_action :set_current_user_microposts, only: %i[mymicroposts]
+  before_action :set_micropost, only: %i[show]
 
   # GET /microposts
   # GET /microposts.json
   def index
-    @microposts = Micropost.all
+    @q = Micropost.ransack(params[:q])
+    @microposts = @q.result(distinct: true).page(params[:page]).order('created_at DESC')
+    @page_title = t('page_title', name: 'Micropost')
   end
 
   # GET /microposts/1
   # GET /microposts/1.json
-  def show; end
+  def show
+    @page_title = t('page_title', name: 'Micropost')
+  end
+
+  def mymicroposts
+    @page_title = t('page_title', name: 'My Microposts')
+  end
 
   # GET /microposts/new
   def new
     @micropost = Micropost.new
+    @page_title = t('page_title', name: 'New Micropost')
   end
 
   # GET /microposts/1/edit
-  def edit; end
+  def edit
+    @page_title = t('page_title', name: 'Edit Micropost')
+  end
 
   # POST /microposts
   # POST /microposts.json
@@ -80,16 +91,18 @@ class MicropostsController < ApplicationController
 
   private
 
-  # Correct_owner
-  def correct_owner
-    redirect_to(microposts_path) unless set_micropost
-  end
-
   # Use callbacks to share common setup or constraints between actions.
   def set_micropost
+    @micropost = Micropost.find(params[:id])
+  end
+
+  def set_current_user_micropost
     @micropost = current_user.microposts.find(params[:id])
   end
 
+  def set_current_user_microposts
+    @microposts = current_user.microposts
+  end
   # Never trust parameters from the scary internet, only allow the white list through. # rubocop:disable all
   def micropost_params
     params.require(:micropost).permit(:content, :image, category_ids: [])

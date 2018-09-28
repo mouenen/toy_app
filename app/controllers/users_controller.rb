@@ -8,20 +8,26 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.page params[:page]
+    @page_title = t('page_title', name: 'User')
   end
 
   # GET /users/1
   # GET /users/1.json
-  def show; end
+  def show
+    @page_title = t('page_title', name: 'User')
+  end
 
   # GET /users/new
   def new
     @user = User.new
+    @page_title = t('page_title', name: 'New User')
   end
 
   # GET /users/1/edit
-  def edit; end
+  def edit
+    @page_title = t('page_title', name: 'Edit User')
+  end
 
   # POST /users
   # POST /users.json

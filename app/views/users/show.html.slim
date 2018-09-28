@@ -1,5 +1,12 @@
 p#notice
   = notice
+
+- if @user.image.attached?
+  p
+    strong 
+      | Image:
+    = image_tag @user.image
+
 p
   strong
     | Name:

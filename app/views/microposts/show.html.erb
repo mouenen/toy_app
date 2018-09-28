@@ -1,43 +1,49 @@
-<div id="micropost" data-id="<%= @micropost.id %>">
-  <p id="notice"><%= notice %></p>
+<div id="micropost" data-id="<%= @micropost.id %>" data-user="<%= @micropost.user_id %>">
+  <div id="user" data-id="<%= current_user.id %>">
+    <p id="notice"><%= notice %></p>
 
-  <% if @micropost.image.attached? %>
-  <p>
-  <strong> Image: </strong>
-    <%= image_tag @micropost.image %>
-  </p>
-  <% end %>
-
-  <p>
-    <strong>Content:</strong>
-    <%= @micropost.content %>
-  </p>
-
-  <p>
-    <strong>Category:</strong>
-    <% @micropost.categories.each do |category|%>
-      <li><%= link_to category.name, category_path(category)%></li>
+    <% if @micropost.image.attached? %>
+      <p>
+        <strong> Image: </strong>
+        <%= image_tag @micropost.image %>
+      </p>
     <% end %>
-  </p>
-  
-  <p>
-    <strong>User:</strong>
-    <%= @micropost.user_name %>
-  </p>
 
-  <table id="comments">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Comment</th>
-      </tr>
-    </thead>
-  </table>
+    <p>
+      <strong>Content:</strong>
+      <%= @micropost.content %>
+    </p>
 
-  <%= render partial:'comments/form', locals: {micropost: @micropost} %>
-  
-  <%= link_to 'Edit', edit_micropost_path(@micropost) %> |
-  <%= link_to 'Back', microposts_path %>
+    <p>
+      <strong>Category:</strong>
+      <% @micropost.categories.each do |category|%>
+        <li><%= link_to category.name, category_path(category)%></li>
+      <% end %>
+    </p>
+
+    <p>
+      <strong>User:</strong>
+      <%= @micropost.user_name %>
+    </p>
+
+    <table id="comments">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Comment</th>
+        </tr>
+      </thead>
+    </table>
+
+    </br>
+    <%= render partial:'comments/form', locals: {micropost: @micropost} %>
+
+    <% if user_signed_in? && @micropost.user_id == current_user.id %>
+      <%= link_to 'Edit', edit_micropost_path(@micropost) %>
+      |
+    <% end %>
+    <%= link_to 'Back', microposts_path %>
+  </div>
 </div>
 
 <script>
@@ -46,7 +52,11 @@ $(function() {
   $.get(url, function(result) {
     result.forEach(function(comment) {
       var tr = $('<tr>')
-      tr.html("<td>"+comment.name+"</td>" + "<td>"+comment.comment+"</td>")
+      tr.html("<td>"+comment.name+"</td>"
+            + "<td>"+comment.comment+"</td>")
+      if ($('#micropost').data('user') == $('#user').data('id')) {
+        tr.append(`<a href='/comments/${comment.id}?micropost_id=${comment.micropost_id}' data-method="delete">Delete</a>`)
+      }
       $('#comments').append(tr)
     })
   })

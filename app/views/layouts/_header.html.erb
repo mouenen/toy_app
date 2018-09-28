@@ -1,0 +1,23 @@
+<header class="nvbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+        <%= link_to "Toy", microposts_path, id: "logo" %>
+        <li class="dropdown col-md-1">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">                    
+                <%= gravatar_for current_user, size: 60%><b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="/users/<%= current_user.id %>">Myself</a></li>
+                <li class="divider"></li>
+                <li><a href="/users/microposts/<%= current_user.id %>">My microposts</a></li>
+                <li><a href="/users/comments/<%= current_user.id %>">My comments</a></li>                
+            </ul>
+        </li>
+        <h1 id="page_title"><%= @page_title %></h1>
+        <nav id="login">
+            <% if user_signed_in? %>
+                <p> <%= link_to('Logout', destroy_user_session_path, method: :delete) %> </p>
+            <% else %>
+                <p> <%= link_to('Login', new_user_session_path) %> </p>
+            <% end %>
+        </nav>
+    </div>
+</header>

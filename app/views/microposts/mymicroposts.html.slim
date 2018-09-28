@@ -4,22 +4,19 @@ table
   thead
     tr
       th
-        | User
+        | Category:
       th
-        | UserName
+        | User:
       th
-        | Content
+        | Content:
       th colspan="3"
   tbody
-    = form_tag microposts_path, method: :get, class: "navbar-form navbar-left" do 
-      div.form-group
-        = search_field_tag("q[content_cont]", params["q"] && params["q"]["content_cont"],
-                                 class:"form-control input-sm search-form")
-
     - @microposts.each do |micropost|
       tr
         td
-          = link_to gravatar_for(micropost.user, size: 60), micropost.user
+          - micropost.categories.each do |category|
+            li
+              = link_to category.name, category_path(category)
         td
           = micropost.user_name
         td
@@ -34,5 +31,3 @@ table
             = link_to 'Delete', micropost, method: :delete, data: { confirm: 'Are you sure?' }
 br
 = link_to 'New Micropost', new_micropost_path
-br
-= paginate @microposts
